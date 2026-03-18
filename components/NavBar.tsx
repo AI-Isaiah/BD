@@ -8,6 +8,7 @@ import type { Timeframe } from "@/lib/types";
 const NAV_LINKS = [
   { href: "/", label: "Dashboard" },
   { href: "/time-explorer", label: "Time Explorer" },
+  { href: "/distance-explorer", label: "Distance Explorer" },
 ] as const;
 
 const TIMEFRAMES: { value: Timeframe; label: string }[] = [

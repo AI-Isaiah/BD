@@ -33,6 +33,25 @@ export interface TimeExplorerData {
   totalSamples: number;
 }
 
+export interface DistanceStatBucket {
+  movePctBucket: number;
+  label: string;
+  highHoldPct: number;
+  lowHoldPct: number;
+  continuedFurtherPct: number;
+  reversalAfterPct: number;
+  smallWickWarning: boolean;
+  p1FlipRisk: number;
+}
+
+export interface DistanceExplorerData {
+  timeframe: Timeframe;
+  buckets: DistanceStatBucket[];
+  currentMovePct: number;
+  currentBucketIdx: number;
+  totalSamples: number;
+}
+
 export interface DashboardData {
   p1FlipRisk: number;
   newP2Confidence: number;
