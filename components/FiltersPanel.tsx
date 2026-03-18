@@ -20,20 +20,15 @@ const DEFAULTS: FilterSettings = {
 };
 
 export default function FiltersPanel() {
-  const [settings, setSettings] = useState<FilterSettings>(DEFAULTS);
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
+  const [settings, setSettings] = useState<FilterSettings>(() => {
+    if (typeof window === "undefined") return DEFAULTS;
     const saved = localStorage.getItem("brighterdata-filters");
-    if (saved) setSettings(JSON.parse(saved));
-    setLoaded(true);
-  }, []);
+    return saved ? JSON.parse(saved) : DEFAULTS;
+  });
 
   useEffect(() => {
-    if (loaded) {
-      localStorage.setItem("brighterdata-filters", JSON.stringify(settings));
-    }
-  }, [settings, loaded]);
+    localStorage.setItem("brighterdata-filters", JSON.stringify(settings));
+  }, [settings]);
 
   const update = (key: keyof FilterSettings, value: number | boolean | string) => {
     setSettings((s) => ({ ...s, [key]: value }));

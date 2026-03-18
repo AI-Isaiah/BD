@@ -1,4 +1,5 @@
 import { AlertTriangle } from "lucide-react";
+import { getRiskColor } from "@/lib/colors";
 import type { DashboardData } from "@/lib/types";
 
 interface Props {
@@ -6,12 +7,7 @@ interface Props {
 }
 
 export default function KeyInsights({ data }: Props) {
-  const riskColor =
-    data.p1FlipRisk < 35
-      ? "text-emerald-400"
-      : data.p1FlipRisk > 55
-        ? "text-red-400"
-        : "text-yellow-400";
+  const riskColor = getRiskColor(data.p1FlipRisk);
 
   return (
     <div className="bg-[#111111] border border-[#1F1F1F] rounded-2xl p-6 h-fit">

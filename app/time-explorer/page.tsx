@@ -14,7 +14,8 @@ function TimeExplorerContent() {
   useEffect(() => {
     fetch(`/api/time-explorer?tf=${tf}`)
       .then((res) => res.json())
-      .then(setData);
+      .then(setData)
+      .catch((err) => console.error("Failed to load time stats:", err));
   }, [tf]);
 
   return (

@@ -12,24 +12,11 @@ import {
   Cell,
 } from "recharts";
 import { AlertTriangle, Clock } from "lucide-react";
+import ChartTooltip from "@/components/ChartTooltip";
 import type { TimeExplorerData } from "@/lib/types";
 
 interface Props {
   data: TimeExplorerData;
-}
-
-function CustomTooltip({ active, payload, label }: any) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div className="bg-[#1A1A1A] border border-[#1F1F1F] rounded-xl p-3 text-sm">
-      <p className="text-white font-medium mb-1">{label}:00 UTC</p>
-      {payload.map((entry: any) => (
-        <p key={entry.name} style={{ color: entry.color }}>
-          {entry.name}: {entry.value}%
-        </p>
-      ))}
-    </div>
-  );
 }
 
 export default function TimePanel({ data }: Props) {
@@ -63,7 +50,7 @@ export default function TimePanel({ data }: Props) {
               stroke="#1F1F1F"
               tickFormatter={(v) => `${v}%`}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<ChartTooltip />} />
             <Legend
               wrapperStyle={{ color: "#888888", fontSize: 12 }}
             />
@@ -123,7 +110,7 @@ export default function TimePanel({ data }: Props) {
               stroke="#1F1F1F"
               tickFormatter={(v) => `${v}%`}
             />
-            <Tooltip content={<CustomTooltip />} />
+            <Tooltip content={<ChartTooltip />} />
             <Legend wrapperStyle={{ color: "#888888", fontSize: 12 }} />
             <Bar
               dataKey="highHoldPct"

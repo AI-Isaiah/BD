@@ -2,6 +2,7 @@
 
 import { Target, TrendingUp, Shield, FileDown } from "lucide-react";
 import { exportTradingPlan } from "@/lib/export-pdf";
+import { getBiasColor, getBiasBg, getRiskColor } from "@/lib/colors";
 import type { SummaryData, SummaryPageData } from "@/lib/types";
 
 interface Props {
@@ -9,19 +10,8 @@ interface Props {
 }
 
 function BiasCard({ summary, label }: { summary: SummaryData; label: string }) {
-  const biasColor =
-    summary.biasDirection === "bullish"
-      ? "text-emerald-400"
-      : summary.biasDirection === "bearish"
-        ? "text-red-400"
-        : "text-yellow-400";
-
-  const biasBg =
-    summary.biasDirection === "bullish"
-      ? "bg-emerald-950/30 border-emerald-500/20"
-      : summary.biasDirection === "bearish"
-        ? "bg-red-950/30 border-red-500/20"
-        : "bg-yellow-950/30 border-yellow-500/20";
+  const biasColor = getBiasColor(summary.biasDirection);
+  const biasBg = getBiasBg(summary.biasDirection);
 
   const strengthColor =
     summary.pivotStrength === "strong" ? "text-emerald-400" : "text-orange-400";
@@ -88,15 +78,7 @@ function BiasCard({ summary, label }: { summary: SummaryData; label: string }) {
         <div className="mt-3 pt-3 border-t border-[#1F1F1F]">
           <p className="text-xs text-gray-500">
             P1 Flip Risk:{" "}
-            <span
-              className={
-                summary.overallP1FlipRisk < 35
-                  ? "text-emerald-400"
-                  : summary.overallP1FlipRisk > 55
-                    ? "text-red-400"
-                    : "text-yellow-400"
-              }
-            >
+            <span className={getRiskColor(summary.overallP1FlipRisk)}>
               {summary.overallP1FlipRisk}%
             </span>
           </p>

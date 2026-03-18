@@ -41,9 +41,11 @@ function generateMockDistanceStats(): DistanceStatBucket[] {
   return buckets;
 }
 
+const cachedBuckets = generateMockDistanceStats();
+
 export async function GET(request: NextRequest) {
   const tf = (request.nextUrl.searchParams.get("tf") ?? "daily") as Timeframe;
-  const buckets = generateMockDistanceStats();
+  const buckets = cachedBuckets;
 
   // Simulate current move from mock candle data
   const currentMovePct = 1.45;

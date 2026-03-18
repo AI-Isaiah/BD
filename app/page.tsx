@@ -16,7 +16,8 @@ function DashboardContent() {
   useEffect(() => {
     fetch(`/api/dashboard?tf=${tf}`)
       .then((res) => res.json())
-      .then(setData);
+      .then(setData)
+      .catch((err) => console.error("Failed to load dashboard:", err));
   }, [tf]);
 
   return (

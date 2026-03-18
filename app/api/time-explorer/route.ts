@@ -38,9 +38,11 @@ function generateMockTimeStats(): TimeStatBucket[] {
   return buckets;
 }
 
+const cachedBuckets = generateMockTimeStats();
+
 export async function GET(request: NextRequest) {
   const tf = (request.nextUrl.searchParams.get("tf") ?? "daily") as Timeframe;
-  const buckets = generateMockTimeStats();
+  const buckets = cachedBuckets;
 
   // Simulate current P1 bucket based on time of day
   const currentHour = new Date().getUTCHours();

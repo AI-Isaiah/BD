@@ -11,7 +11,8 @@ function SummaryContent() {
   useEffect(() => {
     fetch("/api/summary")
       .then((res) => res.json())
-      .then(setData);
+      .then(setData)
+      .catch((err) => console.error("Failed to load summary:", err));
   }, []);
 
   return (

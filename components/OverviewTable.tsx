@@ -1,6 +1,8 @@
 "use client";
 
-interface Asset {
+import { getBiasColor, getRiskColor } from "@/lib/colors";
+
+export interface Asset {
   symbol: string;
   bias: string;
   timeHold: number;
@@ -36,15 +38,7 @@ export default function OverviewTable({ data }: Props) {
               <td className="py-4 px-4 font-mono font-bold text-white">
                 {a.symbol}
               </td>
-              <td
-                className={`py-4 px-4 font-semibold ${
-                  a.bias === "Bullish"
-                    ? "text-emerald-400"
-                    : a.bias === "Bearish"
-                      ? "text-red-400"
-                      : "text-yellow-400"
-                }`}
-              >
+              <td className={`py-4 px-4 font-semibold ${getBiasColor(a.bias.toLowerCase() as "bullish" | "bearish" | "neutral")}`}>
                 {a.bias}
               </td>
               <td className="py-4 px-4 text-gray-300">{a.timeHold}%</td>
@@ -52,15 +46,7 @@ export default function OverviewTable({ data }: Props) {
               <td className="py-4 px-4 font-mono text-gray-300">
                 {a.confidence}%
               </td>
-              <td
-                className={`py-4 px-4 font-medium ${
-                  a.p1FlipRisk > 55
-                    ? "text-red-400"
-                    : a.p1FlipRisk > 35
-                      ? "text-yellow-400"
-                      : "text-emerald-400"
-                }`}
-              >
+              <td className={`py-4 px-4 font-medium ${getRiskColor(a.p1FlipRisk)}`}>
                 {a.p1FlipRisk}%
               </td>
             </tr>

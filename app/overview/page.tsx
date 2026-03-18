@@ -3,14 +3,16 @@
 import { Suspense, useEffect, useState } from "react";
 import NavBar from "@/components/NavBar";
 import OverviewTable from "@/components/OverviewTable";
+import type { Asset } from "@/components/OverviewTable";
 
 function OverviewContent() {
-  const [data, setData] = useState<any[] | null>(null);
+  const [data, setData] = useState<Asset[] | null>(null);
 
   useEffect(() => {
     fetch("/api/overview")
       .then((res) => res.json())
-      .then(setData);
+      .then(setData)
+      .catch((err) => console.error("Failed to load overview:", err));
   }, []);
 
   return (
