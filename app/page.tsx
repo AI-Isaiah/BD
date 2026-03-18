@@ -1,6 +1,7 @@
 "use client";
 
 import KeyInsights from "@/components/KeyInsights";
+import MainChart from "@/components/MainChart";
 import { useEffect, useState } from "react";
 import type { DashboardData } from "@/lib/types";
 
@@ -39,13 +40,10 @@ export default function Dashboard() {
       </nav>
 
       <div className="flex">
-        {/* Main Chart Area (placeholder for TradingView later) */}
+        {/* Main Chart Area */}
         <div className="flex-1 p-8">
-          <div className="bg-[#111111] h-[600px] rounded-3xl flex items-center justify-center border border-[#1F1F1F]">
-            <p className="text-gray-400">
-              TradingView Lightweight Chart + P1/P2 lines + Confidence Targets
-              will go here
-            </p>
+          <div className="bg-[#111111] h-[600px] rounded-3xl border border-[#1F1F1F]">
+            <MainChart data={data} />
           </div>
         </div>
 
