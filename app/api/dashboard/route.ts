@@ -3,6 +3,7 @@ import {
   calculateP1FlipRisk,
   calculateNewP2Confidence,
 } from "@/lib/calculations";
+import { detectP1P2 } from "@/lib/p1p2-engine";
 import type { CandleData, DashboardData } from "@/lib/types";
 
 function generateMockCandles(): CandleData[] {
@@ -33,21 +34,29 @@ function generateMockCandles(): CandleData[] {
 }
 
 export async function GET() {
+  const candles = generateMockCandles();
+
+  // Detect P1/P2 dynamically from candle data
+  const { p1, p2, confidenceTargets } = detectP1P2(candles);
+
+  // Historical stats (mock — will use DB in Phase 1)
   const mockHistory = Array.from({ length: 500 }, (_, i) => ({
     high: 52000 + Math.sin(i * 0.1) * 1500 + Math.random() * 500,
     low: 49000 + Math.sin(i * 0.1) * 1000 + Math.random() * 500,
   }));
-
   const mockMoves = [800, 1500, 900, 2000, 650, 1800, 1100, 2500, 750, 1300];
 
   const data: DashboardData = {
-    p1FlipRisk: calculateP1FlipRisk(52000, 50500, mockHistory),
-    newP2Confidence: calculateNewP2Confidence(1200, mockMoves),
+    p1FlipRisk: calculateP1FlipRisk(candles[0].open, p1.price, mockHistory),
+    newP2Confidence: calculateNewP2Confidence(
+      p2 ? Math.abs(p2.price - p1.price) : 1200,
+      mockMoves
+    ),
     smallWickWarning: Math.random() > 0.7,
-    currentP1: { price: 50500, time: "14:32 UTC" },
-    currentP2: { price: 53200, time: "Pending" },
-    confidenceTargets: { ninety: 53000, fifty: 51500, twenty: 50800 },
-    candles: generateMockCandles(),
+    currentP1: p1,
+    currentP2: p2,
+    confidenceTargets,
+    candles,
   };
 
   return NextResponse.json(data);

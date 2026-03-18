@@ -52,27 +52,31 @@ export default function MainChart({ data }: MainChartProps) {
       data.candles.map((c) => ({ ...c, time: c.time as UTCTimestamp }))
     );
 
-    // P1 line: solid teal
+    // P1 line: solid teal — label includes type
+    const p1Label = `P1 ${data.currentP1.type === "high" ? "High" : "Low"}`;
     candleSeries.createPriceLine({
       price: data.currentP1.price,
       color: "#00E5CC",
       lineWidth: 2,
       lineStyle: LineStyle.Solid,
       axisLabelVisible: true,
-      title: "P1",
+      title: p1Label,
     });
 
-    // P2 line: dashed green
-    candleSeries.createPriceLine({
-      price: data.currentP2.price,
-      color: "#00FF9D",
-      lineWidth: 2,
-      lineStyle: LineStyle.Dashed,
-      axisLabelVisible: true,
-      title: "P2",
-    });
+    // P2 line: dashed green — or skip if pending
+    if (data.currentP2) {
+      const p2Label = `P2 ${data.currentP2.type === "high" ? "High" : "Low"}`;
+      candleSeries.createPriceLine({
+        price: data.currentP2.price,
+        color: "#00FF9D",
+        lineWidth: 2,
+        lineStyle: LineStyle.Dashed,
+        axisLabelVisible: true,
+        title: p2Label,
+      });
+    }
 
-    // 90% confidence target: blue
+    // Confidence targets
     candleSeries.createPriceLine({
       price: data.confidenceTargets.ninety,
       color: "#3B82F6",
@@ -82,7 +86,6 @@ export default function MainChart({ data }: MainChartProps) {
       title: "90%",
     });
 
-    // 50% confidence target: yellow
     candleSeries.createPriceLine({
       price: data.confidenceTargets.fifty,
       color: "#F5A623",
@@ -92,7 +95,6 @@ export default function MainChart({ data }: MainChartProps) {
       title: "50%",
     });
 
-    // 20% confidence target: gray
     candleSeries.createPriceLine({
       price: data.confidenceTargets.twenty,
       color: "#888888",

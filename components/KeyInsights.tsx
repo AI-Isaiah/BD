@@ -20,12 +20,14 @@ export default function KeyInsights({ data }: Props) {
       <div className="space-y-8">
         {/* P1 FLIP RISK */}
         <div>
-          <p className="text-xs text-gray-400 mb-1">P1 FLIP RISK</p>
+          <p className="text-xs text-gray-400 mb-1">
+            P1 FLIP RISK ({data.currentP1.type === "high" ? "HIGH" : "LOW"})
+          </p>
           <p className={`text-6xl font-bold ${riskColor}`}>
             {data.p1FlipRisk}%
           </p>
           <p className="text-xs text-gray-500 mt-1">
-            of similar days eventually swept P1
+            Formed at {data.currentP1.timeLabel}
           </p>
         </div>
 
