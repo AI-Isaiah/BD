@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import KeyInsights from "@/components/KeyInsights";
 import MainChart from "@/components/MainChart";
 import NavBar from "@/components/NavBar";
+import WarningBanner from "@/components/WarningBanner";
 import type { DashboardData, Timeframe } from "@/lib/types";
 
 function DashboardContent() {
@@ -21,6 +22,7 @@ function DashboardContent() {
   return (
     <div className="bg-[#0A0A0A] text-white min-h-screen">
       <NavBar />
+      {data && <WarningBanner data={data} />}
       {!data ? (
         <div className="flex items-center justify-center h-[80vh]">
           Loading Brighter Data...
