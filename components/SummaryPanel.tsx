@@ -1,6 +1,7 @@
 "use client";
 
-import { Target, TrendingUp, Shield } from "lucide-react";
+import { Target, TrendingUp, Shield, FileDown } from "lucide-react";
+import { exportTradingPlan } from "@/lib/export-pdf";
 import type { SummaryData, SummaryPageData } from "@/lib/types";
 
 interface Props {
@@ -118,6 +119,23 @@ export default function SummaryPanel({ data }: Props) {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <BiasCard summary={data.daily} label="Daily" />
         <BiasCard summary={data.weekly} label="Weekly" />
+      </div>
+
+      <div className="mt-6 pt-6 border-t border-[#1F1F1F] flex gap-3">
+        <button
+          onClick={() => exportTradingPlan(data.daily, "BTCUSDT")}
+          className="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+        >
+          <FileDown className="w-4 h-4" />
+          Export Daily PDF
+        </button>
+        <button
+          onClick={() => exportTradingPlan(data.weekly, "BTCUSDT")}
+          className="flex items-center gap-2 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+        >
+          <FileDown className="w-4 h-4" />
+          Export Weekly PDF
+        </button>
       </div>
     </div>
   );

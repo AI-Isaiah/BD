@@ -28,13 +28,13 @@ function DashboardContent() {
           Loading Brighter Data...
         </div>
       ) : (
-        <div className="flex">
-          <div className="flex-1 p-8">
-            <div className="bg-[#111111] h-[600px] rounded-3xl border border-[#1F1F1F]">
+        <div className="flex flex-col lg:flex-row">
+          <div className="flex-1 p-4 md:p-8">
+            <div className="bg-[#111111] h-[400px] md:h-[600px] rounded-3xl border border-[#1F1F1F]">
               <MainChart data={data} />
             </div>
           </div>
-          <div className="w-96 border-l border-[#1F1F1F] p-8">
+          <div className="w-full lg:w-96 lg:border-l border-t lg:border-t-0 border-[#1F1F1F] p-4 md:p-8">
             <KeyInsights data={data} />
           </div>
         </div>

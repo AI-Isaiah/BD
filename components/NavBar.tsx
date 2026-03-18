@@ -11,6 +11,7 @@ const NAV_LINKS = [
   { href: "/distance-explorer", label: "Distance Explorer" },
   { href: "/summary", label: "Summary" },
   { href: "/overview", label: "Overview" },
+  { href: "/filters", label: "Filters" },
 ] as const;
 
 const TIMEFRAMES: { value: Timeframe; label: string }[] = [
@@ -25,10 +26,10 @@ function NavBarInner() {
   const currentTf = searchParams.get("tf") ?? "daily";
 
   return (
-    <nav className="border-b border-[#1F1F1F] p-4 flex items-center justify-between">
-      <div className="flex items-center gap-8">
-        <span className="font-bold text-xl text-white">Brighter Data</span>
-        <div className="flex gap-1">
+    <nav className="border-b border-[#1F1F1F] p-3 md:p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
+      <div className="flex items-center gap-4 md:gap-8 overflow-x-auto">
+        <span className="font-bold text-lg md:text-xl text-white shrink-0">Brighter Data</span>
+        <div className="flex gap-1 shrink-0">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
