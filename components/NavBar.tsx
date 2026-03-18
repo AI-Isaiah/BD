@@ -9,6 +9,7 @@ const NAV_LINKS = [
   { href: "/", label: "Dashboard" },
   { href: "/time-explorer", label: "Time Explorer" },
   { href: "/distance-explorer", label: "Distance Explorer" },
+  { href: "/summary", label: "Summary" },
 ] as const;
 
 const TIMEFRAMES: { value: Timeframe; label: string }[] = [

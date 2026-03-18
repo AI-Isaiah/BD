@@ -52,6 +52,21 @@ export interface DistanceExplorerData {
   totalSamples: number;
 }
 
+export interface SummaryData {
+  timeframe: Timeframe;
+  biasDirection: "bullish" | "bearish" | "neutral";
+  biasConfidence: number;
+  overallP1FlipRisk: number;
+  confidenceTargets: { ninety: number; fifty: number; twenty: number };
+  pivotStrength: "strong" | "weak";
+  pivotHoldPct: number;
+}
+
+export interface SummaryPageData {
+  daily: SummaryData;
+  weekly: SummaryData;
+}
+
 export interface DashboardData {
   p1FlipRisk: number;
   newP2Confidence: number;
