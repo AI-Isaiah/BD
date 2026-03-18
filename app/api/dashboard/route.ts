@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import {
   calculateP1FlipRisk,
   calculateNewP2Confidence,
@@ -33,7 +33,8 @@ function generateMockCandles(): CandleData[] {
   return candles;
 }
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const _tf = request.nextUrl.searchParams.get("tf") ?? "daily";
   const candles = generateMockCandles();
 
   // Detect P1/P2 dynamically from candle data

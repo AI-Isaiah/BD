@@ -13,6 +13,26 @@ export interface PivotPoint {
   timeLabel: string; // "14:32 UTC"
 }
 
+export type Timeframe = "daily" | "4h" | "weekly" | "monthly";
+
+export interface TimeStatBucket {
+  bucket: string;
+  highFormationPct: number;
+  lowFormationPct: number;
+  highHoldPct: number;
+  lowHoldPct: number;
+  takenOutAfterHighPct: number;
+  takenOutAfterLowPct: number;
+  earlyWarning: boolean;
+}
+
+export interface TimeExplorerData {
+  timeframe: Timeframe;
+  buckets: TimeStatBucket[];
+  currentP1Bucket: string;
+  totalSamples: number;
+}
+
 export interface DashboardData {
   p1FlipRisk: number;
   newP2Confidence: number;
